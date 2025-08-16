@@ -1,8 +1,13 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 function Pricing() {
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
       <h1>Pricing Plans</h1>
       <div className="pricing-plans">
         <div className="plan">
@@ -16,7 +21,7 @@ function Pricing() {
           <p>Contact for pricing</p>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

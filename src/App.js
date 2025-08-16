@@ -1,29 +1,42 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import useLocalStorage from 'use-local-storage';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import Home from './pages/Home';
-import Features from './pages/Features';
-import Demo from './pages/Demo';
-import UseCases from './pages/UseCases';
-import Pricing from './pages/Pricing';
-import About from './pages/About';
 import './App.css';
 
+const Home = lazy(() => import('./pages/Home'));
+const Features = lazy(() => import('./pages/Features'));
+const Demo = lazy(() => import('./pages/Demo'));
+const UseCases = lazy(() => import('./pages/UseCases'));
+const Pricing = lazy(() => import('./pages/Pricing'));
+const About = lazy(() => import('./pages/About'));
+
 function App() {
+  const [theme, setTheme] = useLocalStorage('theme', 'light');
+
+  const toggleTheme = () => {
+    setTheme(theme === 'light' ? 'dark' : 'light');
+  };
+
   return (
     <Router>
-      <div className="App">
+      <div className={`App ${theme}`}>
+        <button onClick={toggleTheme} style={{ position: 'fixed', top: 10, right: 10 }}>
+          Toggle {theme === 'light' ? 'Dark' : 'Light'} Mode
+        </button>
         <Navbar />
         <main>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/features" element={<Features />} />
-            <Route path="/demo" element={<Demo />} />
-            <Route path="/use-cases" element={<UseCases />} />
-            <Route path="/pricing" element={<Pricing />} />
-            <Route path="/about" element={<About />} />
-          </Routes>
+          <Suspense fallback={<div>Loading...</div>}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/features" element={<Features />} />
+              <Route path="/demo" element={<Demo />} />
+              <Route path="/use-cases" element={<UseCases />} />
+              <Route path="/pricing" element={<Pricing />} />
+              <Route path="/about" element={<About />} />
+            </Routes>
+          </Suspense>
         </main>
         <Footer />
       </div>

@@ -1,8 +1,14 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 function Features() {
   return (
-    <div className="features-list">
+    <motion.div
+      className="features-list"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
       <h1>Key Features</h1>
       <div className="feature-item">
         <h2>AI Regulation Scanner</h2>
@@ -24,7 +30,7 @@ function Features() {
         <h2>Multi-Country, Multi-Industry Support</h2>
         <p>Scales for global operations across industries.</p>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

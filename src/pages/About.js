@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 
 function About() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
@@ -14,20 +15,29 @@ function About() {
   };
 
   return (
-    <div className="about-section">
+    <motion.div
+      className="about-section"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
       <h1>About Us</h1>
       <p>We are a team building AI solutions for compliance to help companies stay ahead of regulations.</p>
       <p>Why we built it: Manual tracking is inefficient—AI makes it seamless.</p>
+      <div>
+        <h2>Powered by Ballerina</h2>
+        <p>Our backend (coming soon) leverages Ballerina for seamless API integrations, real-time event-driven alerts, and scalable compliance processing.</p>
+      </div>
       <div className="contact-form">
         <h2>Contact Us</h2>
-        <form onSubmit={handleSubmit}>
-          <input type="text" name="name" placeholder="Your Name" value={formData.name} onChange={handleChange} required />
-          <input type="email" name="email" placeholder="Your Email" value={formData.email} onChange={handleChange} required />
-          <textarea name="message" placeholder="Your Message" value={formData.message} onChange={handleChange} required />
+        <form onSubmit={handleSubmit} aria-label="Contact form">
+          <input type="text" name="name" placeholder="Your Name" value={formData.name} onChange={handleChange} required aria-required="true" />
+          <input type="email" name="email" placeholder="Your Email" value={formData.email} onChange={handleChange} required aria-required="true" />
+          <textarea name="message" placeholder="Your Message" value={formData.message} onChange={handleChange} required aria-required="true" />
           <button type="submit">Send Message</button>
         </form>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
