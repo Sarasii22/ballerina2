@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+//import BalLogo from '../assests/ballerina-logo.png';
 
 function Home() {
   return (
@@ -14,7 +15,7 @@ function Home() {
         <h1>Stay Compliant, Stay Ahead – AI-Powered Real-Time Compliance Monitoring</h1>
         <p>Automatically track regulations, map to your processes, and get instant alerts.</p>
         <Link to="/demo"><button className="cta-button">Try Live Demo</button></Link>
-        <img src="/ballerina-logo.png" alt="Built with Ballerina" style={{ width: '100px', marginTop: '20px' }} />
+        
       </motion.section>
       <section className="how-it-works">
         <motion.div

@@ -8,10 +8,29 @@ function About() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert('Form submitted! (Mocked for demo)');
-    // In real app, send to backend
+    // Client-side validation
+    if (!formData.name || !formData.email || !formData.message) {
+      alert('Please fill in all fields.');
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:9090/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      if (response.ok) {
+        alert('Message sent successfully!');
+        setFormData({ name: '', email: '', message: '' }); // Reset form
+      } else {
+        alert('Error sending message. Please try again. (Status: ' + response.status + ')');
+      }
+    } catch (error) {
+      alert('Error: ' + error.message);
+    }
   };
 
   return (
